@@ -1,12 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMD Eléctronica</title>
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <p>Hola Mundo
-    </p>
+  <!-- Navbar fijo -->
+  <header>
+    <nav aria-label="Menú principal">
+      <div class="logo">SMD Eléctronica</div>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul id="menu">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#tienda">Tienda</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+   Hero con imagen de marca 
+  <section id="hero" class="full-section">
+    <h1>Bienvenido a</h1>
+    <!--<p>Repuestos y servicios de mantenimiento</p>-->
+  </section>
+
+  <!-- Sección Tienda -->
+  <main>
+    <section id="tienda" class="full-section">
+      <h2>Productos</h2>
+      <div class="grid">
+        <!-- Productos -->
+        <div class="producto">
+          <img src="img/producto1.jpg" alt="Producto 1" class="producto-img">
+          <h3>Producto 1</h3>
+          <p>Descripción breve del producto 1.</p>
+          <p class="precio">$10.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto2.jpg" alt="Producto 2" class="producto-img">
+          <h3>Producto 2</h3>
+          <p>Descripción breve del producto 2.</p>
+          <p class="precio">$15.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto3.jpg" alt="Producto 3" class="producto-img">
+          <h3>Producto 3</h3>
+          <p>Descripción breve del producto 3.</p>
+          <p class="precio">$20.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto4.jpg" alt="Producto 4" class="producto-img">
+          <h3>Producto 4</h3>
+          <p>Descripción breve del producto 4.</p>
+          <p class="precio">$25.000</p>
+          <button>Comprar</button>
+        </div>
+        <div class="producto">
+          <img src="img/producto5.jpg" alt="Producto 5" class="producto-img">
+          <h3>Producto 5</h3>
+          <p>Descripción breve del producto 5.</p>
+          <p class="precio">$12.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto6.jpg" alt="Producto 6" class="producto-img">
+          <h3>Producto 6</h3>
+          <p>Descripción breve del producto 6.</p>
+          <p class="precio">$18.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto7.jpg" alt="Producto 7" class="producto-img">
+          <h3>Producto 7</h3>
+          <p>Descripción breve del producto 7.</p>
+          <p class="precio">$22.000</p>
+          <button>Comprar</button>
+        </div>
+
+        <div class="producto">
+          <img src="img/producto8.jpg" alt="Producto 8" class="producto-img">
+          <h3>Producto 8</h3>
+          <p>Descripción breve del producto 8.</p>
+          <p class="precio">$30.000</p>
+          <button>Comprar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Servicios -->
+    <section id="servicios" class="normal-section">
+      <h2>Servicios</h2>
+      <p>Ofrecemos mantenimiento integral y repuestos originales para garantizar el mejor rendimiento de tus equipos.</p>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="normal-section">
+      <h2>Contacto</h2>
+      <div id="divForm">
+        <form action="URL_de_destino" method="POST">
+          <fieldset>
+            <legend>Información Personal</legend>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+          </fieldset>
+
+          <fieldset>
+            <legend>Motivo y Mensaje</legend>
+            <label for="motivo">Motivo:</label>
+            <select id="motivo" name="motivo" required>
+              <option value="">-- Seleccioná una opción --</option>
+              <option value="consulta">Consulta</option>
+              <option value="soporte">Soporte</option>
+              <option value="otros">Otros</option>
+            </select>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+          </fieldset>
+
+          <section>
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpiar</button>
+          </section>
+        </form>
+
+        <div id="divMap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.018280197916!2d-58.38417712350349!3d-34.60369925749863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9f0a6da5edb%3A0x11bead4e234e558b!2sObelisco!5e0!3m2!1ses-419!2sar!4v1774999859445!5m2!1ses-419!2sar"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>SMD Eléctronica</h3>
+        <p>Repuestos y servicios de mantenimiento con calidad garantizada.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Enlaces</h3>
+        <ul>
+          <li><a href="#hero">Inicio</a></li>
+          <li><a href="#tienda">Tienda</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contacto</h3>
+        <p>Email: contacto@smdelectronica.com</p>
+        <p>Tel: +54 11 1234-5678</p>
+        <div class="social">
+          <a href="#">Facebook</a> | 
+          <a href="#">Instagram</a> | 
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 SMD Eléctronica - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- Script menú hamburguesa -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        document.getElementById("menu").classList.remove("show");
+      }
+    });
+
+  </script>
 </body>
 </html>
