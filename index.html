@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMD Eléctronica</title>
   <link rel="stylesheet" href="css/estilos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Navbar fijo -->
@@ -105,7 +106,26 @@
       <h2>Servicios</h2>
       <p>Ofrecemos mantenimiento integral y repuestos originales para garantizar el mejor rendimiento de tus equipos.</p>
     </section>
-
+     <!-- Sección reseñas -->
+    <section id="reseñas" class="normal-section">
+      <h2>Reseñas de Clientes</h2>
+      <div class="carrusel">
+        <div class="carrusel-track">
+          <div class="reseña"><p>"Excelente atención y repuestos originales."</p><span>- Laura Gómez</span></div>
+          <div class="reseña"><p>"El servicio técnico solucionó mi problema rápido."</p><span>- Martín Pérez</span></div>
+          <div class="reseña"><p>"Muy recomendable, confiables y profesionales."</p><span>- Sofía Ramírez</span></div>
+          <div class="reseña"><p>"Gran calidad en los productos."</p><span>- Diego Fernández</span></div>
+          <div class="reseña"><p>"Atención personalizada y amable."</p><span>- Carla López</span></div>
+          <div class="reseña"><p>"Resolvieron mi problema en el mismo día."</p><span>- Javier Torres</span></div>
+          <div class="reseña"><p>"Precios accesibles y buena garantía."</p><span>- Mariana Díaz</span></div>
+          <div class="reseña"><p>"Muy satisfecho con el servicio."</p><span>- Andrés Castro</span></div>
+          <div class="reseña"><p>"Excelente asesoramiento técnico."</p><span>- Valeria Suárez</span></div>
+          <div class="reseña"><p>"Me ayudaron a elegir el repuesto correcto."</p><span>- Pablo Herrera</span></div>
+          <div class="reseña"><p>"Servicio rápido y confiable."</p><span>- Natalia Rojas</span></div>
+          <div class="reseña"><p>"Sin dudas volveré a comprar aquí."</p><span>- Ricardo Molina</span></div>
+        </div>
+      </div>
+    </section>
     <!-- Sección Contacto -->
     <section id="contacto" class="normal-section">
       <h2>Contacto</h2>
@@ -191,7 +211,21 @@
         document.getElementById("menu").classList.remove("show");
       }
     });
+    // script carrusel 
+    const track = document.querySelector('.carrusel-track');
+    const reseñas = document.querySelectorAll('.reseña');
+    let index = 0;
 
+    function mostrarReseña() {
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function siguienteReseña() {
+      index = (index + 1) % reseñas.length;
+      mostrarReseña();
+    }
+
+    setInterval(siguienteReseña, 4000); // cambia cada 4 segundos
   </script>
 </body>
 </html>

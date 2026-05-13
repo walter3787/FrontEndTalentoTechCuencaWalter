@@ -1,6 +1,6 @@
 /* Reset */
 * { margin: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; }
+body { font-family: 'Roboto', sans-serif; }
 
 .logo{
   color:#fff;
@@ -212,4 +212,36 @@ html {
 
 .footer-section a:hover {
   color:cadetblue;
+}
+
+/* seccion reseñas */
+.carrusel {
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px; /* ancho fijo para desktop */
+  margin: 2rem auto;
+}
+
+.carrusel-track {
+  display: flex;
+  transition: transform 0.8s ease-in-out;
+}
+
+.reseña {
+  flex: 0 0 100%; /* ocupa todo el ancho → 1 reseña por vista */
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Responsivo: en pantallas chicas ocupa todo el ancho */
+@media (max-width: 768px) {
+  .carrusel {
+    max-width: 100%;
+  }
 }
