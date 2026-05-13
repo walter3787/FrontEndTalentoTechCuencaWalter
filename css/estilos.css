@@ -199,3 +199,15 @@ footer { background-color: #333; color: white; padding: 2rem 1rem; }
 html {
   scroll-behavior: smooth;
 }
+
+/* Texto redes */
+.social a {
+  color: white;         
+  text-decoration: none; /* quita el subrayado */
+  font-weight: bold;     
+}
+
+.social a:hover {
+  color: #ddd;           /* cambia a gris claro al pasar el mouse */
+}
+
