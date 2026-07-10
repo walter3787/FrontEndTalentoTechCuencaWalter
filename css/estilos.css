@@ -1,6 +1,10 @@
 /* Reset */
 * { margin: 0; box-sizing: border-box; }
-body { font-family: 'Roboto', sans-serif; }
+html {
+  scroll-behavior: smooth;
+  height: 100%; /* Asegura que el navegador calcule bien las alturas */
+}
+body { font-family: 'Poppins', sans-serif; min-height: 100%; }
 
 .logo{
   color:#fff;
@@ -70,12 +74,12 @@ nav ul li a {
 
 /* Hero */
 #hero {
-  height: 100vh;
-  background: url("../img/backgroundHero.png") center/cover no-repeat;
+  height: 70vh;
+  background: url("../img/backgroundHero2.png") center/cover no-repeat;
   display: flex; 
   flex-direction: column;
   align-items: center; 
-  justify-content: flex-start;
+  justify-content: center;
   color: white; 
   text-align: center;
   text-shadow: 2px 2px 4px black;
@@ -86,12 +90,71 @@ nav ul li a {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.2));
+  /*background: rgba(0,0,0,0.35);*/
   z-index: 1;
 }
-#hero h1, #hero p {
+#hero h1, #hero p, #hero .btn-cta {
+  position: relative;
+    z-index: 2;
+}
+#hero .overlay {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* espacio entre título, subtítulo y botón */
+}
+
+
+.btn-cta {
+  background: #00c853;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+  background: #009624;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  z-index: 3;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator:hover {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 12px); }
 }
 
 /* Secciones */

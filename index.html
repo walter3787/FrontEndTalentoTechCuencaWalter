@@ -3,32 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMD Eléctronica</title>
+  <title>SMD Electrónica + Carrito</title>
   <link rel="stylesheet" href="css/estilos.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Navbar fijo -->
-  <header>
-    <nav aria-label="Menú principal">
-      <div class="logo">SMD Eléctronica</div>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
-      <ul id="menu">
-        <li><a href="#hero">Inicio</a></li>
-        <li><a href="#tienda">Tienda</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <nav aria-label="Menú principal">
+    <div class="logo">SMD Eléctronica</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <ul id="menu">
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#tienda">Tienda</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li>
+        <div class="cart-icon" id="cartIcon">
+          🛒 <span id="cartCount" class="cart-count">0</span>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  
    Hero con imagen de marca 
   <section id="hero" class="full-section">
-    <h1>Bienvenido a</h1>
-    <!--<p>Repuestos y servicios de mantenimiento</p>-->
+    <div class="overlay">
+      <h1>Repuestos originales, reparación confiable</h1>
+      <p>Soluciones para tu hogar con garantía</p>
+      <a href="#tienda" class="btn-cta">Explorar Tienda</a>
+    </div>
+    <a href="#tienda"  class="scroll-indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24">
+        <line x1="12" y1="5" x2="12" y2="15"/>
+        <polyline points="6 11 12 17 18 11"/>
+      </svg>
+    </a>
   </section>
+
+  <!-- Sidebar carrito -->
+  <div class="overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Tu Carrito</h3>
+      <button class="close-cart" id="closeCartBtn">✖</button>
+    </div>
+    <div class="cart-items" id="cartItemsContainer">
+      <p>El carrito está vacío</p>
+    </div>
+    <div class="cart-total" id="cartTotal">Total: $0</div>
+  </div>
 
   <!-- Sección Tienda -->
   <main>
