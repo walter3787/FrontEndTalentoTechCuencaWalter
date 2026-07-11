@@ -233,7 +233,6 @@ section { padding: 4rem 2rem; }
 .producto button {
   width: 100%; margin-top: 1rem; padding: 0.7rem;
   border: none; border-radius: 4px;
-  background-color: hsl(211, 92%, 54%); color: white;
   cursor: pointer; transition: background 0.3s;
   font-size: 1rem;
 }
@@ -285,8 +284,8 @@ section { padding: 4rem 2rem; }
 
 .price {
   font-size: 2rem;
-  color: #2a9d8f;
-  font-weight: bold;
+  color: #000000;
+  font-weight: normal;
 }
 
 .rating {
@@ -295,7 +294,7 @@ section { padding: 4rem 2rem; }
 }
 
 .btn-buy {
-  background: #264653;
+  background: #2a9d8f;
   color: #fff;
   border: none;
   padding: 0.6rem;
@@ -396,34 +395,114 @@ html {
 }
 
 /* seccion reseñas */
+#reseñas {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+#reseñas h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #264653;
+}
+
+.nav-btn {
+  background: #2a9d8f;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: #264653;
+}
+
 .carrusel {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
 
 .carrusel-track {
-  display: inline-flex;
-  gap: 1rem;
+  display: flex;
+  gap: 16px;
+  transition: transform 0.6s ease;
 }
 
 .reseña {
   background: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  min-width: 220px;
-  flex: 0 0 auto;
+  border-radius: 10px;
+  padding: 1.2rem;
+  min-width: 240px;
+  flex: 0 0 calc(33.333% - 16px); /* 3 reseñas en desktop */
+  margin-right: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Botones flotantes */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4); /* fondo semitransparente */
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover elegante */
+.nav-btn:hover {
+  background: rgba(42, 157, 143, 0.9); /* verde moderno */
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Posiciones */
+#prevReview {
+  left: 10px;
+}
+
+#nextReview {
+  right: 10px;
+}
+
+/* Opcional: sombra para destacar */
+.nav-btn {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.reseña:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
 .reseña p {
   font-style: italic;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: #333;
 }
 
 .reseña span {
   font-size: 0.9rem;
-  color: #333;
+  color: #555;
+  display: block;
+}
+
+.reseña .stars {
+  color: gold;
+  margin-top: 0.5rem;
 }
 
 
@@ -431,6 +510,10 @@ html {
 @media (max-width: 768px) {
   .carrusel {
     max-width: 100%;
+  }
+  .reseña {
+    flex: 0 0 100%; /* 1 reseña en mobile */
+    margin-right: 0;
   }
 }
 
@@ -583,4 +666,51 @@ html {
 
 .close:hover {
   color: #000;
+}
+
+/*Servicios*/
+.servicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.servicio {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.servicio-icon {
+  background: #eaf4f2;
+  color: #2a9d8f;
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.servicio h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #264653;
+}
+
+.servicio p {
+  font-size: 0.9rem;
+  color: #555;
 }

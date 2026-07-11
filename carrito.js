@@ -182,8 +182,10 @@ function renderGlobalReviews() {
         div.className = "reseña";
         div.innerHTML = `
           <p>"${r.comment}"</p>
-          <span>- ${r.reviewerName} ${getStars(r.rating)}</span>
+          <span>- ${r.reviewerName}</span>
+          <div class="stars">${getStars(r.rating)}</div>
         `;
+
         track.appendChild(div);
       });
     }
@@ -208,6 +210,57 @@ function renderReviews(product) {
     </div>
   `).join("");
 }
+
+//AutoScroll Reseñas
+let reviewIndex = 0;
+let reviewsPerSlide = window.innerWidth > 768 ? 3 : 1;
+
+function showReviews() {
+  const track = document.querySelector("#reseñas .carrusel-track");
+  const reseñas = document.querySelectorAll("#reseñas .reseña");
+  if (!track || reseñas.length === 0) return;
+
+  const reviewWidth = document.querySelector("#reseñas").offsetWidth;
+  track.style.transform = `translateX(-${reviewIndex * reviewWidth}px)`;
+
+}
+
+function nextReviews() {
+  const reseñas = document.querySelectorAll("#reseñas .reseña");
+  if (reseñas.length === 0) return;
+
+  reviewIndex += reviewsPerSlide;
+  if (reviewIndex >= reseñas.length) {
+    reviewIndex = 0;
+  }
+  showReviews();
+}
+
+function prevReviews() {
+  const reseñas = document.querySelectorAll("#reseñas .reseña");
+  if (reseñas.length === 0) return;
+
+  reviewIndex -= reviewsPerSlide;
+  if (reviewIndex < 0) {
+    reviewIndex = Math.max(0, reseñas.length - reviewsPerSlide);
+  }
+  showReviews();
+}
+
+// recalcular en resize
+window.addEventListener("resize", () => {
+  reviewsPerSlide = window.innerWidth > 768 ? 3 : 1;
+  reviewIndex = 0;
+  showReviews();
+});
+
+// auto-slide cada 4 segundos
+setInterval(nextReviews, 4000);
+
+// listeners de botones
+document.getElementById("nextReview").addEventListener("click", nextReviews);
+document.getElementById("prevReview").addEventListener("click", prevReviews);
+
 
 
 // ===============================
@@ -314,6 +367,12 @@ async function fetchProducts() {
 
   // Ahora sí, cargar carrito con productos disponibles
   loadCart();
+
+  // Renderizar reseñas globales
+  renderGlobalReviews();
+
+  //Auto Scroll Reseñas
+  autoScrollReviews();
 
 }
 fetchProducts();
