@@ -83,6 +83,12 @@ function updateCartUI() {
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   document.getElementById("cartCount").innerText = totalItems;
 
+  // sincronizar también el contador en mobile
+  const cartCountMobile = document.getElementById("cartCountMobile");
+  if (cartCountMobile) {
+    cartCountMobile.innerText = totalItems;
+  }
+
   const container = document.getElementById("cartItemsContainer");
   if (carrito.length === 0) {
     container.innerHTML = "<p>El carrito está vacío</p>";
@@ -279,6 +285,11 @@ function closeCart() {
 // Event listeners
 // ===============================
 document.getElementById("cartIcon").addEventListener("click", openCart);
+// 👉 nuevo listener para el carrito en mobile
+const cartIconMobile = document.getElementById("cartIconMobile");
+if (cartIconMobile) {
+  cartIconMobile.addEventListener("click", openCart);
+}
 document.getElementById("closeCartBtn").addEventListener("click", closeCart);
 document.getElementById("cartOverlay").addEventListener("click", closeCart);
 document.getElementById("checkoutBtn").addEventListener("click", checkout);

@@ -13,10 +13,19 @@
 <body>
   <!-- Navbar fijo -->
   <nav aria-label="Menú principal">
-    <div class="logo">SMD Eléctronica</div>
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+    <div class="logo">SMD Electrónica</div>
+
+    <!-- Bloque hamburguesa + carrito para mobile -->
+    <div class="mobile-nav">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="cart-icon" id="cartIconMobile">
+        🛒 <span id="cartCountMobile" class="cart-count">0</span>
+      </div>
     </div>
+
+    <!-- Menú principal con carrito para desktop -->
     <ul id="menu">
       <li><a href="#hero">Inicio</a></li>
       <li><a href="#tienda">Tienda</a></li>
@@ -29,6 +38,7 @@
       </li>
     </ul>
   </nav>
+
   
    Hero con imagen de marca 
   <section id="hero" class="full-section">
