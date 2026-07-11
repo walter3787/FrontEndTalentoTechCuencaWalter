@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SMD Electrónica - Repuestos originales y servicio técnico confiable.">
+  <meta name="keywords" content="electrónica, repuestos, heladeras, lavarropas, servicio técnico">
   <title>SMD Electrónica + Carrito</title>
   <link rel="stylesheet" href="css/estilos.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <!-- Navbar fijo -->
   <nav aria-label="Menú principal">
@@ -59,8 +62,9 @@
   <main>
     <section id="tienda" class="full-section">
       <h2>Productos</h2>
-      <div class="grid">
-        <!-- Productos -->
+      <div id="productGrid" class="grid">
+        <!-- Aquí se van a renderizar las cards dinámicas -->
+        <!-- Productos harcodeados pre entrega
         <div class="producto">
           <img src="img/producto1.jpg" alt="Producto 1" class="producto-img">
           <h3>Timer de heladera</h3>
@@ -122,14 +126,20 @@
           <p>Kit de heladera DFF40 PCB Forzador y red de sensor</p>
           <p class="precio">$30.000</p>
           <button>Comprar</button>
-        </div>
+        </div>-->
       </div>
     </section>
 
     <!-- Sección Servicios -->
-    <section id="servicios" class="normal-section">
-      <h2>Servicios</h2>
-      <p>Ofrecemos mantenimiento integral y repuestos originales para garantizar el mejor rendimiento de tus equipos.</p>
+    <section id="servicios" style="background: var(--gray-bg);">
+      <div class="container">
+        <h2>Nuestros servicios</h2>
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+          <div style="background: white; padding: 2rem; border-radius: 24px; text-align: center; flex:1;">🔧 Reparación</div>
+          <div style="background: white; padding: 2rem; border-radius: 24px; text-align: center; flex:1;">🛒 Venta de repuestos</div>
+          <div style="background: white; padding: 2rem; border-radius: 24px; text-align: center; flex:1;">🚚 Envíos a todo el país</div>
+        </div>
+      </div>
     </section>
      <!-- Sección reseñas -->
     <section id="reseñas" class="normal-section">
@@ -226,31 +236,6 @@
     </div>
   </footer>
 
-  <!-- Script menú hamburguesa -->
-  <script>
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        document.getElementById("menu").classList.remove("show");
-      }
-    });
-    // script carrusel 
-    const track = document.querySelector('.carrusel-track');
-    const reseñas = document.querySelectorAll('.reseña');
-    let index = 0;
-
-    function mostrarReseña() {
-      track.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    function siguienteReseña() {
-      index = (index + 1) % reseñas.length;
-      mostrarReseña();
-    }
-
-    setInterval(siguienteReseña, 4000); // cambia cada 4 segundos
-  </script>
 </body>
+<script src="carrito.js"></script>
 </html>

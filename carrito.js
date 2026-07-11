@@ -1,169 +1,306 @@
- function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        document.getElementById("menu").classList.remove("show");
-      }
-    });
-    // script carrusel 
-    const track = document.querySelector('.carrusel-track');
-    const reseñas = document.querySelectorAll('.reseña');
-    let index = 0;
+// ===============================
+// Menú hamburguesa
+// ===============================
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("show");
+}
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById("menu").classList.remove("show");
+  }
+});
 
-    function mostrarReseña() {
-      track.style.transform = `translateX(-${index * 100}%)`;
-    }
+// ===============================
+// Carrusel reseñas
+// ===============================
+const track = document.querySelector('.carrusel-track');
+const reseñas = document.querySelectorAll('.reseña');
+let index = 0;
 
-    function siguienteReseña() {
-      index = (index + 1) % reseñas.length;
-      mostrarReseña();
-    }
+function mostrarReseña() {
+  track.style.transform = `translateX(-${index * 100}%)`;
+}
+function siguienteReseña() {
+  index = (index + 1) % reseñas.length;
+  mostrarReseña();
+}
+setInterval(siguienteReseña, 4000); // cambia cada 4 segundos
 
-    setInterval(siguienteReseña, 4000); // cambia cada 4 segundos
+// ===============================
+// Productos (dinámicos con API)
+// ===============================
+let productos = []; // se llena con fetch
 
-// Lista de productos (simulada)
-    const productos = [
-      { id: 1, nombre: "Timer de heladera", desc: "Timer para heladera Electrolux", precio: 10000, img: "https://picsum.photos/id/20/300/200" },
-      { id: 2, nombre: "Placa principal lavarropas", desc: "Placa de potencia Electrolux", precio: 15000, img: "https://picsum.photos/id/26/300/200" },
-      { id: 3, nombre: "Resistencia Heladera DF", desc: "Resistencia de deshielo", precio: 20000, img: "https://picsum.photos/id/30/300/200" },
-      { id: 4, nombre: "Termostato RC-45070-4", desc: "Termostato caña completa", precio: 25000, img: "https://picsum.photos/id/41/300/200" }
-    ];
+// ===============================
+// Carrito
+// ===============================
+let carrito = [];
 
-    // Carrito: array de objetos { id, cantidad }
-    let carrito = [];
+// Cargar carrito desde localStorage
+function loadCart() {
+  const saved = localStorage.getItem("smd_cart");
+  carrito = saved ? JSON.parse(saved) : [];
+  updateCartUI();
+}
 
-    // Cargar carrito desde localStorage
-    function loadCart() {
-      const saved = localStorage.getItem("smd_cart");
-      if (saved) {
-        carrito = JSON.parse(saved);
-      } else {
-        carrito = [];
-      }
-      updateCartUI();
-    }
+// Guardar carrito en localStorage
+function saveCart() {
+  localStorage.setItem("smd_cart", JSON.stringify(carrito));
+  updateCartUI();
+}
 
-    // Guardar carrito en localStorage
-    function saveCart() {
-      localStorage.setItem("smd_cart", JSON.stringify(carrito));
-      updateCartUI();
-    }
+// Agregar producto
+function addToCart(productId) {
+  const existing = carrito.find(item => item.id === productId);
+  if (existing) {
+    existing.cantidad++;
+  } else {
+    carrito.push({ id: productId, cantidad: 1 });
+  }
+  saveCart();
+}
 
-    // Agregar producto al carrito
-    function addToCart(productId) {
-      const existing = carrito.find(item => item.id === productId);
-      if (existing) {
-        existing.cantidad++;
-      } else {
-        carrito.push({ id: productId, cantidad: 1 });
-      }
-      saveCart();
-    }
+// Eliminar producto
+function removeFromCart(productId) {
+  carrito = carrito.filter(item => item.id !== productId);
+  saveCart();
+}
 
-    // Eliminar producto del carrito
-    function removeFromCart(productId) {
-      carrito = carrito.filter(item => item.id !== productId);
-      saveCart();
-    }
+// Cambiar cantidad
+function updateQuantity(productId, newCant) {
+  const item = carrito.find(i => i.id === productId);
+  if (item) {
+    if (newCant <= 0) removeFromCart(productId);
+    else { item.cantidad = newCant; saveCart(); }
+  }
+}
 
-    // Cambiar cantidad (para más adelante)
-    function updateQuantity(productId, newCant) {
-      const item = carrito.find(i => i.id === productId);
-      if (item) {
-        if (newCant <= 0) removeFromCart(productId);
-        else { item.cantidad = newCant; saveCart(); }
-      }
-    }
+// ===============================
+// UI del carrito
+// ===============================
+function updateCartUI() {
+  // contador
+  const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  document.getElementById("cartCount").innerText = totalItems;
 
-    // Actualizar UI del carrito (sidebar y contador)
-    function updateCartUI() {
-      // contador
-      const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-      document.getElementById("cartCount").innerText = totalItems;
+  const container = document.getElementById("cartItemsContainer");
+  if (carrito.length === 0) {
+    container.innerHTML = "<p>El carrito está vacío</p>";
+    document.getElementById("cartTotal").innerHTML = "Total: $0";
+    return;
+  }
 
-      const container = document.getElementById("cartItemsContainer");
-      if (carrito.length === 0) {
-        container.innerHTML = "<p>El carrito está vacío</p>";
-        document.getElementById("cartTotal").innerHTML = "Total: $0";
-        return;
-      }
+  let total = 0;
+  let html = "";
+  for (let item of carrito) {
+    const prod = productos.find(p => p.id === item.id);
+    if (!prod) continue;
+    const subtotal = prod.precio * item.cantidad;
+    total += subtotal;
+    html += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <h4>${prod.nombre}</h4>
+          <p>$${prod.precio} x ${item.cantidad} = $${subtotal}</p>
+        </div>
+        <div class="cart-item-actions">
+          <button onclick="updateQuantity(${item.id}, ${item.cantidad - 1})">➖</button>
+          <button onclick="updateQuantity(${item.id}, ${item.cantidad + 1})">➕</button>
+          <button onclick="removeFromCart(${item.id})">🗑️</button>
+        </div>
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+  document.getElementById("cartTotal").innerHTML = `Total: $${total.toLocaleString()}`;
+}
 
-      let total = 0;
-      let html = "";
-      for (let item of carrito) {
-        const prod = productos.find(p => p.id === item.id);
-        if (!prod) continue;
-        const subtotal = prod.precio * item.cantidad;
-        total += subtotal;
-        html += `
-          <div class="cart-item">
-            <div class="cart-item-info">
-              <h4>${prod.nombre}</h4>
-              <p>$${prod.precio} x ${item.cantidad} = $${subtotal}</p>
-            </div>
-            <div class="cart-item-actions">
-              <button onclick="removeFromCart(${item.id})">🗑️</button>
-            </div>
-          </div>
-        `;
-      }
-      container.innerHTML = html;
-      document.getElementById("cartTotal").innerHTML = `Total: $${total.toLocaleString()}`;
-    }
 
-    // Renderizar productos en la grilla
-    function renderProducts() {
-      const grid = document.getElementById("productGrid");
-      if (!grid) return;
-      grid.innerHTML = "";
-      productos.forEach(prod => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${prod.img}" alt="${prod.nombre}" class="product-img">
-          <div class="product-info">
-            <div class="product-title">${prod.nombre}</div>
-            <div class="product-desc">${prod.desc}</div>
-            <div class="price">$${prod.precio.toLocaleString()}</div>
-            <button class="btn-buy" data-id="${prod.id}">Comprar</button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-      // Agregar eventos a botones Comprar
-      document.querySelectorAll(".btn-buy").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = parseInt(btn.dataset.id);
-          addToCart(id);
-          // Opcional: abrir sidebar para feedback
-          document.getElementById("cartSidebar").classList.add("open");
-          document.getElementById("cartOverlay").classList.add("show");
-        });
-      });
-    }
+// ===============================
+// Renderizar ratings
+// ===============================
 
-    // Funciones para abrir/cerrar carrito
-    function openCart() {
+function getStars(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 >= 0.5;
+  let stars = "★".repeat(fullStars);
+  if (halfStar) stars += "½";
+  return stars.padEnd(5, "☆"); // completa hasta 5
+}
+
+
+// ===============================
+// Renderizar productos
+// ===============================
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  productos.forEach(prod => {
+    const card = document.createElement("div");
+    card.className = "producto";
+    card.innerHTML = `
+      <img src="${prod.img}" alt="${prod.nombre}" class="producto-img">
+      <div class="product-info">
+        <div class="product-title">${prod.nombre}</div>
+        <div class="product-desc">${prod.desc}</div>
+        <div class="price">$${prod.precio.toLocaleString()}</div>
+        <div class="rating">${getStars(prod.rating || 0)}</div>
+        <button class="btn-buy" data-id="${prod.id}">Comprar</button>
+      </div>
+    `;
+    grid.appendChild(card);
+
+  });
+  // Eventos de botones Comprar
+  document.querySelectorAll(".btn-buy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = parseInt(btn.dataset.id);
+      addToCart(id);
       document.getElementById("cartSidebar").classList.add("open");
       document.getElementById("cartOverlay").classList.add("show");
-    }
-    function closeCart() {
-      document.getElementById("cartSidebar").classList.remove("open");
-      document.getElementById("cartOverlay").classList.remove("show");
-    }
+    });
+  });
+}
 
-    // Event listeners
-    document.getElementById("cartIcon").addEventListener("click", openCart);
-    document.getElementById("closeCartBtn").addEventListener("click", closeCart);
-    document.getElementById("cartOverlay").addEventListener("click", closeCart);
+// ===============================
+// Render reviews
+// ===============================
 
-    // Inicialización
-    loadCart();
- //   renderProducts();
-    window.toggleMenu = function() {
-      document.getElementById("menu").classList.toggle("show");
-    };
-    window.removeFromCart = removeFromCart;  // para que funcione onclick
+function renderReviews(product) {
+  // Si no hay reseñas, devolvemos vacío
+  if (!product.reviews || product.reviews.length === 0) {
+    return "<p>No hay reseñas disponibles.</p>";
+  }
+
+  // Generamos HTML para cada reseña
+  return product.reviews.map(r => `
+    <div class="review">
+      <div class="review-header">
+        <strong>${r.reviewerName}</strong> – ${getStars(r.rating)}
+      </div>
+      <p class="review-comment">"${r.comment}"</p>
+      <small class="review-date">${new Date(r.date).toLocaleDateString()}</small>
+    </div>
+  `).join("");
+}
 
 
+// ===============================
+// Sidebar carrito
+// ===============================
+function openCart() {
+  document.getElementById("cartSidebar").classList.add("open");
+  document.getElementById("cartOverlay").classList.add("show");
+}
+function closeCart() {
+  document.getElementById("cartSidebar").classList.remove("open");
+  document.getElementById("cartOverlay").classList.remove("show");
+}
+
+// ===============================
+// Event listeners
+// ===============================
+document.getElementById("cartIcon").addEventListener("click", openCart);
+document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+document.getElementById("cartOverlay").addEventListener("click", closeCart);
+
+window.toggleMenu = toggleMenu;
+window.removeFromCart = removeFromCart; // para que funcione onclick
+
+// ===============================
+// Fetch API productos
+// ===============================
+async function fetchProducts() {
+  // Llamadas en paralelo
+  const [fakeRes, laptopsRes, phonesRes, tabletsRes, accessoriesRes] = await Promise.all([
+    fetch("https://fakestoreapi.com/products/category/electronics"),
+    fetch("https://dummyjson.com/products/category/laptops"),
+    fetch("https://dummyjson.com/products/category/smartphones"),
+    fetch("https://dummyjson.com/products/category/tablets"),
+    fetch("https://dummyjson.com/products/category/mobile-accessories")
+  ]);
+
+  const [fakeData, laptopsData, phonesData, tabletsData, accessoriesData] = await Promise.all([
+    fakeRes.json(),
+    laptopsRes.json(),
+    phonesRes.json(),
+    tabletsRes.json(),
+    accessoriesRes.json()
+  ]);
+
+  // Normalizar Fake Store
+  const fakeProducts = fakeData.map(p => ({
+    id: p.id,
+    nombre: p.title,
+    desc: p.description,
+    precio: p.price,
+    img: p.image,
+    rating: p.rating?.rate || 0,   // rating adaptado
+    reviews: []                   // Fake Store no trae reseñas
+  }));
+
+  // Normalizar DummyJSON (laptops, smartphones, tablets, accesorios)
+  const laptops = laptopsData.products.map(p => ({
+    id: p.id,
+    nombre: p.title,
+    desc: p.description,
+    precio: p.price,
+    img: p.thumbnail || p.images[0],
+    rating: p.rating || 0,        // rating directo
+    reviews: p.reviews || []      // reseñas si existen
+  }));
+
+  const smartphones = phonesData.products.map(p => ({
+    id: p.id,
+    nombre: p.title,
+    desc: p.description,
+    precio: p.price,
+    img: p.thumbnail || p.images[0],
+    rating: p.rating || 0,
+    reviews: p.reviews || []
+  }));
+
+  const tablets = tabletsData.products.map(p => ({
+    id: p.id,
+    nombre: p.title,
+    desc: p.description,
+    precio: p.price,
+    img: p.thumbnail || p.images[0],
+    rating: p.rating || 0,
+    reviews: p.reviews || []
+  }));
+
+  const accessories = accessoriesData.products.map(p => ({
+    id: p.id,
+    nombre: p.title,
+    desc: p.description,
+    precio: p.price,
+    img: p.thumbnail || p.images[0],
+    rating: p.rating || 0,
+    reviews: p.reviews || []
+  }));
+
+  // Unir arrays
+  productos = [...fakeProducts, ...laptops, ...smartphones, ...tablets, ...accessories];
+
+  // Renderizar
+  renderProducts();
+}
+fetchProducts();
+
+// ===============================
+// Validación formulario
+// ===============================
+document.querySelector("form").addEventListener("submit", (e) => {
+  const email = document.getElementById("email").value;
+  if (!email.includes("@")) {
+    e.preventDefault();
+    alert("Por favor ingresa un correo válido.");
+  }
+});
+
+// ===============================
+// Inicialización
+// ===============================
+loadCart();
