@@ -167,6 +167,30 @@ function renderProducts() {
 // Render reviews
 // ===============================
 
+function renderGlobalReviews() {
+  const track = document.querySelector("#reseñas .carrusel-track");
+  if (!track) return;
+
+  // Limpiar contenido previo
+  track.innerHTML = "";
+
+  // Recorrer productos y sus reseñas
+  productos.forEach(prod => {
+    if (prod.reviews && prod.reviews.length > 0) {
+      prod.reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "reseña";
+        div.innerHTML = `
+          <p>"${r.comment}"</p>
+          <span>- ${r.reviewerName} ${getStars(r.rating)}</span>
+        `;
+        track.appendChild(div);
+      });
+    }
+  });
+}
+
+
 function renderReviews(product) {
   // Si no hay reseñas, devolvemos vacío
   if (!product.reviews || product.reviews.length === 0) {
@@ -204,6 +228,7 @@ function closeCart() {
 document.getElementById("cartIcon").addEventListener("click", openCart);
 document.getElementById("closeCartBtn").addEventListener("click", closeCart);
 document.getElementById("cartOverlay").addEventListener("click", closeCart);
+document.getElementById("checkoutBtn").addEventListener("click", checkout);
 
 window.toggleMenu = toggleMenu;
 window.removeFromCart = removeFromCart; // para que funcione onclick
@@ -284,10 +309,46 @@ async function fetchProducts() {
   // Unir arrays
   productos = [...fakeProducts, ...laptops, ...smartphones, ...tablets, ...accessories];
 
-  // Renderizar
+  // Renderizar catálogo
   renderProducts();
+
+  // Ahora sí, cargar carrito con productos disponibles
+  loadCart();
+
 }
 fetchProducts();
+
+// ===============================
+// Checkout ficticio
+// ===============================
+function checkout() {
+  if (carrito.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+  // Vaciar carrito
+  carrito = [];
+  saveCart();
+  closeCart();
+
+  // Mostrar modal
+  const modal = document.getElementById("checkoutModal");
+  modal.style.display = "block";
+
+  // Cerrar modal al hacer clic en la X
+  document.getElementById("closeModal").onclick = () => {
+    modal.style.display = "none";
+  };
+
+  // Cerrar modal al hacer clic fuera del contenido
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+
+
 
 // ===============================
 // Validación formulario
@@ -303,4 +364,9 @@ document.querySelector("form").addEventListener("submit", (e) => {
 // ===============================
 // Inicialización
 // ===============================
-loadCart();
+
+
+fetchProducts();  // carga catálogo de productos
+
+
+

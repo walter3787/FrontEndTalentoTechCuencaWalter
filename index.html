@@ -56,6 +56,10 @@
       <p>El carrito está vacío</p>
     </div>
     <div class="cart-total" id="cartTotal">Total: $0</div>
+    <div id="cartFooter">
+      <button id="checkoutBtn" class="btn-checkout">Finalizar Compra</button>
+    </div>
+
   </div>
 
   <!-- Sección Tienda -->
@@ -141,26 +145,13 @@
         </div>
       </div>
     </section>
-     <!-- Sección reseñas -->
     <section id="reseñas" class="normal-section">
-      <h2>Reseñas de Clientes</h2>
-      <div class="carrusel">
-        <div class="carrusel-track">
-          <div class="reseña"><p>"Excelente atención y repuestos originales."</p><span>- Laura Gómez</span></div>
-          <div class="reseña"><p>"El servicio técnico solucionó mi problema rápido."</p><span>- Martín Pérez</span></div>
-          <div class="reseña"><p>"Muy recomendable, confiables y profesionales."</p><span>- Sofía Ramírez</span></div>
-          <div class="reseña"><p>"Gran calidad en los productos."</p><span>- Diego Fernández</span></div>
-          <div class="reseña"><p>"Atención personalizada y amable."</p><span>- Carla López</span></div>
-          <div class="reseña"><p>"Resolvieron mi problema en el mismo día."</p><span>- Javier Torres</span></div>
-          <div class="reseña"><p>"Precios accesibles y buena garantía."</p><span>- Mariana Díaz</span></div>
-          <div class="reseña"><p>"Muy satisfecho con el servicio."</p><span>- Andrés Castro</span></div>
-          <div class="reseña"><p>"Excelente asesoramiento técnico."</p><span>- Valeria Suárez</span></div>
-          <div class="reseña"><p>"Me ayudaron a elegir el repuesto correcto."</p><span>- Pablo Herrera</span></div>
-          <div class="reseña"><p>"Servicio rápido y confiable."</p><span>- Natalia Rojas</span></div>
-          <div class="reseña"><p>"Sin dudas volveré a comprar aquí."</p><span>- Ricardo Molina</span></div>
-        </div>
-      </div>
-    </section>
+  <h2>Reseñas de Clientes</h2>
+  <div class="carrusel">
+    <div class="carrusel-track"></div>
+  </div>
+</section>
+
     <!-- Sección Contacto -->
     <section id="contacto" class="normal-section">
       <h2>Contacto</h2>
@@ -236,6 +227,14 @@
     </div>
   </footer>
 
+  <!-- Modal de confirmación -->
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Compra finalizada</h2>
+      <p>✅ Tu pedido fue procesado con éxito. ¡Gracias por tu compra!</p>
+    </div>
+  </div>
 </body>
 <script src="carrito.js"></script>
 </html>
