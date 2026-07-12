@@ -53,29 +53,6 @@ nav ul li a {
   font-weight: 500;
 }
 
-.cart-icon {
-  position: relative;
-  cursor: pointer;
-  font-size: 1.5rem;
-}
-
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -12px;
-  background: var(--accent);
-  color: white;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-
 
 .hamburger { display: none; flex-direction: column; cursor: pointer; }
 .hamburger span { height: 3px; width: 25px; background: white; margin: 4px 0; }
@@ -117,8 +94,8 @@ nav ul li a {
 
 .cart-icon {
   position: relative;
-  font-size: 1.4rem;
   cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .cart-count {
@@ -288,28 +265,6 @@ section { padding: 4rem 2rem; }
   gap: 1.5rem;
 }
 
-.product-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-}
-
-.product-img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  background: #e9ecef;
-}
-
-.product-info {
-  padding: 1rem;
-}
 
 .product-title {
   font-size: 1.1rem;
@@ -418,11 +373,6 @@ footer { background-color: #333; color: white; padding: 2rem 1rem; }
 /* Menú hamburguesa en móviles */
 #menu.show { display: block; }
 
-/* Scroll suave */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Texto redes */
 .social a {
   font-weight: bold;     
@@ -447,21 +397,6 @@ html {
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
   color: #264653;
-}
-
-.nav-btn {
-  background: #2a9d8f;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 0.8rem;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background 0.3s ease;
-}
-
-.nav-btn:hover {
-  background: #264653;
 }
 
 .carrusel {
@@ -504,7 +439,9 @@ html {
   justify-content: center;
   z-index: 10;
   transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+
 
 /* Hover elegante */
 .nav-btn:hover {
@@ -519,11 +456,6 @@ html {
 
 #nextReview {
   right: 10px;
-}
-
-/* Opcional: sombra para destacar */
-.nav-btn {
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .reseña:hover {

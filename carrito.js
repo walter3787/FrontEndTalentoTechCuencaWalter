@@ -11,22 +11,6 @@ window.addEventListener('resize', () => {
 });
 
 // ===============================
-// Carrusel reseñas
-// ===============================
-const track = document.querySelector('.carrusel-track');
-const reseñas = document.querySelectorAll('.reseña');
-let index = 0;
-
-function mostrarReseña() {
-  track.style.transform = `translateX(-${index * 100}%)`;
-}
-function siguienteReseña() {
-  index = (index + 1) % reseñas.length;
-  mostrarReseña();
-}
-setInterval(siguienteReseña, 4000); // cambia cada 4 segundos
-
-// ===============================
 // Productos (dinámicos con API)
 // ===============================
 let productos = []; // se llena con fetch
@@ -198,25 +182,6 @@ function renderGlobalReviews() {
   });
 }
 
-
-function renderReviews(product) {
-  // Si no hay reseñas, devolvemos vacío
-  if (!product.reviews || product.reviews.length === 0) {
-    return "<p>No hay reseñas disponibles.</p>";
-  }
-
-  // Generamos HTML para cada reseña
-  return product.reviews.map(r => `
-    <div class="review">
-      <div class="review-header">
-        <strong>${r.reviewerName}</strong> – ${getStars(r.rating)}
-      </div>
-      <p class="review-comment">"${r.comment}"</p>
-      <small class="review-date">${new Date(r.date).toLocaleDateString()}</small>
-    </div>
-  `).join("");
-}
-
 //AutoScroll Reseñas
 let reviewIndex = 0;
 let reviewsPerSlide = window.innerWidth > 768 ? 3 : 1;
@@ -382,9 +347,6 @@ async function fetchProducts() {
   // Renderizar reseñas globales
   renderGlobalReviews();
 
-  //Auto Scroll Reseñas
-  autoScrollReviews();
-
 }
 fetchProducts();
 
@@ -431,12 +393,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   }
 });
 
-// ===============================
-// Inicialización
-// ===============================
 
-
-fetchProducts();  // carga catálogo de productos
 
 
 
